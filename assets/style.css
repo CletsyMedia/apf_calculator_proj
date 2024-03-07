@@ -57,6 +57,7 @@ body {
   color: #666;
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1), 
   -5px -5px 10px #ffff;
+  text-align: center;
 }
 
 .calculator .btns button:active {
