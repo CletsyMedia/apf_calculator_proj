@@ -47,4 +47,10 @@ body {
   padding: 10px;
   box-shadow: inset 5px 5px 10px rgba(0, 0, 0, 0.1), inset -5px -5px 20px #ffff;
   margin: 10px;
+  border-radius: 3px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  user-select: none;
+  width: 40px;
 }
