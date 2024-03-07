@@ -52,5 +52,20 @@ body {
   outline: none;
   cursor: pointer;
   user-select: none;
-  width: 40px;
+  min-width: 40px;
+  font-size: 20px;
+  color: #666;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1), 
+  -5px -5px 10px #ffff;
+}
+
+.calculator .btns button:active {
+    box-shadow: inset 5px 5px 10px rgba(0, 0, 0, 0.1), 
+    inset -5px -5px 20px #ffff;
+    color: #f44336;
+}
+
+.calculator.btns button #clear, .calculator.btns button #off {
+    background-color: #f44336;
+    color: white;
 }
