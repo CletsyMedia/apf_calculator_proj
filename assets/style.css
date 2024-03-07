@@ -65,7 +65,11 @@ body {
     color: #f44336;
 }
 
-.calculator .btns button #clear, .calculator .btns button #off {
+.calculator .btns #clear, .calculator .btns #off {
     background-color: #f44336;
     color: white;
+}
+.calculator .btns #equal {
+  background-color: #31a935;
+  color:white ;
 }
