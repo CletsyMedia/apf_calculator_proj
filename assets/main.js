@@ -6,14 +6,19 @@ let isEqualPressed = false; // Flag to track whether "=" button has been pressed
 
 function toggleCalculator() {
   isCalculatorOn = !isCalculatorOn;
+  display.value = ""; // Always clear the display when toggling
   if (isCalculatorOn) {
-    // If calculator is turned on, clear the display
-    display.value = "";
+    // If calculator is turned on, remove the dimmed class and show all buttons
+    display.classList.remove("dimmed");
     document.getElementById('off').textContent = 'Off';
+    btns.forEach(btn => btn.classList.remove("hidden"));
   } else {
-    // If calculator is turned off, set display text to "Off"
-    display.value = 'Off';
+    // If calculator is turned off, add the dimmed class and hide all buttons except the toggle button
+    display.classList.add("dimmed");
     document.getElementById('off').textContent = 'On';
+    btns.forEach(btn => {
+      if (btn.id !== "off") btn.classList.add("hidden");
+    });
   }
 }
 
