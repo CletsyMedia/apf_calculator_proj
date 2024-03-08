@@ -1,23 +1,24 @@
-    let btnContainer = document.querySelector('.btns');
-    let btns = btnContainer.querySelectorAll('button');
-    let display = document.getElementById('display');
-    let isCalculatorOn = true; // Flag to track the calculator state
+let btnContainer = document.querySelector('.btns');
+let btns = btnContainer.querySelectorAll('button');
+let display = document.getElementById('display');
+let isCalculatorOn = true; // Flag to track the calculator state
+let isEqualPressed = false; // Flag to track whether "=" button has been pressed
 
-    function toggleCalculator() {
-      isCalculatorOn = !isCalculatorOn;
-      if (isCalculatorOn) {
-        // If calculator is turned on, clear the display
-        display.value = "";
-        document.getElementById('off').textContent = 'Off';
-      } else {
-        // If calculator is turned off, set display text to "Off"
-        display.value = 'Off';
-        document.getElementById('off').textContent = 'On';
-      }
-    }
+function toggleCalculator() {
+  isCalculatorOn = !isCalculatorOn;
+  if (isCalculatorOn) {
+    // If calculator is turned on, clear the display
+    display.value = "";
+    document.getElementById('off').textContent = 'Off';
+  } else {
+    // If calculator is turned off, set display text to "Off"
+    display.value = 'Off';
+    document.getElementById('off').textContent = 'On';
+  }
+}
 
-    // Add event listener to the "Off" button to toggle calculator on/off
-    document.getElementById('off').addEventListener('click', toggleCalculator);
+// Add event listener to the "Off" button to toggle calculator on/off
+document.getElementById('off').addEventListener('click', toggleCalculator);
 
 // Loop through each button and attach click event listeners
 btns.forEach(btn => {
@@ -25,9 +26,16 @@ btns.forEach(btn => {
     if (!isCalculatorOn) return; // Prevent button clicks when calculator is off
     if (display.value === 'Off') display.value = '';
 
+    if (isEqualPressed) {
+      // Clear the display if "=" button has been pressed
+      display.value = "";
+      isEqualPressed = false; // Reset the flag
+    }
+
     if (this.innerHTML === "=") {
       // Evaluate the expression and set the result to the display
       display.value = eval(display.value);
+      isEqualPressed = true; // Set the flag since "=" button has been pressed
     } else if (this.id === "clear") {
       // Clear the display
       display.value = "";
@@ -56,11 +64,8 @@ btns.forEach(btn => {
   });
 });
 
-
-    // Add event listener to the display input field to restrict input to numbers
-    display.addEventListener('input', function() {
-      // Remove any non-numeric characters from the input value
-      this.value = this.value.replace(/\D/g, '');
-    });
-
-    
+// Add event listener to the display input field to restrict input to numbers
+display.addEventListener('input', function() {
+  // Remove any non-numeric characters from the input value
+  this.value = this.value.replace(/\D/g, '');
+});
