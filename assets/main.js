@@ -3,6 +3,7 @@ let btns = btnContainer.querySelectorAll('button');
 let display = document.getElementById('display');
 let isCalculatorOn = true; // Flag to track the calculator state
 
+
 function toggleCalculator() {
 isCalculatorOn = !isCalculatorOn;
   if (isCalculatorOn) {
@@ -15,9 +16,9 @@ isCalculatorOn = !isCalculatorOn;
     document.getElementById('off').textContent = 'On';
   }
 }
-
 // Add event listener to the "Off" button to toggle calculator on/off
 document.getElementById('off').addEventListener('click', toggleCalculator);
+
 
 // Loop through each button and attach click event listeners
 btns.forEach(btn => {
