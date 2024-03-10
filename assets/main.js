@@ -69,6 +69,7 @@ btns.forEach(btn => {
   });
 });
 
+
 // Add event listener to the display input field to restrict input to numbers
 display.addEventListener('input', function() {
   // Remove any non-numeric characters from the input value
