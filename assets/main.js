@@ -27,9 +27,14 @@ document.getElementById('off').addEventListener('click', toggleCalculator);
 
 // Using foreach to loop through
 btns.forEach(btn => {
-  btn.addEventListener('click', function() {
+  btn.addEventListener('click', function () {
     if (!isCalculatorOn) return;
+    if (btn.innerText?.toLowerCase() === 'off' || btn.innerText?.toLowerCase() === 'on') {
+       return display.value = '';
+     }
+
     if (display.value === 'Off') display.value = '';
+
 
     if (isEqualPressed) {
       display.value = "";
@@ -75,7 +80,7 @@ btns.forEach(btn => {
 });
 
 // Add event listener to remove error class when display value changes
-display.addEventListener('input', function() {
+display.addEventListener('input', function () {
   display.classList.remove("error");
 });
 
@@ -83,7 +88,7 @@ display.addEventListener('input', function() {
 // Add event listener to the display input field to restrict input to numbers
 // Remove any non-numeric characters from the input value
 
-display.addEventListener('input', function() {
+display.addEventListener('input', function () {
   this.value = this.value.replace(/\D/g, '');
 });
 
