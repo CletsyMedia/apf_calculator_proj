@@ -2,7 +2,8 @@ let btnContainer = document.querySelector('.btns');
 let btns = btnContainer.querySelectorAll('button');
 let display = document.getElementById('display');
 let isCalculatorOn = true; // Flag to track the calculator state
-let isEqualPressed = false; // Flag to track whether "=" button has been pressed
+let isResultDisplayed = false; // Flag to track whether the result is displayed
+let lastResult = null; // Variable to store the last calculated result
 
 function toggleCalculator() {
   isCalculatorOn = !isCalculatorOn;
@@ -35,29 +36,36 @@ btns.forEach(btn => {
 
     if (display.value === 'Off') display.value = '';
 
-
-    if (isEqualPressed) {
+    if (isResultDisplayed && this.innerHTML !== "=") {
+      // If the result is displayed and the current button is not "=", reset the flag
+      isResultDisplayed = false;
       display.value = "";
-      isEqualPressed = false;
     }
 
-    if (this.innerHTML === "=") {
+    if (this.innerHTML === "=" && !isResultDisplayed) {
+      // If "=" button is pressed and the result is not already displayed
       try {
-        // Evaluate the expression
-        let result = eval(display.value);
-        if (!isFinite(result)) {
-          // Display error if result is not a finite number
-          display.classList.add("error");
-          display.value = "Error";
-        } else {
-          display.value = result;
+        // Evaluate the expression only if there is something to evaluate
+        if (display.value.trim() !== "") {
+          // Evaluate the expression
+          lastResult = eval(display.value);
+          if (!isFinite(lastResult)) {
+            // Display error if result is not a finite number
+            display.classList.add("error");
+            display.value = "Error";
+          } else {
+            display.value = lastResult;
+            isResultDisplayed = true; // Set the flag to indicate that the result is displayed
+          }
         }
       } catch (error) {
         // Display error if an exception occurs during evaluation
         display.classList.add("error");
         display.value = "Error";
       }
-      isEqualPressed = true;
+    } else if (this.innerHTML === "=" && isResultDisplayed) {
+      // If "=" button is pressed and the result is already displayed, return the last calculated result
+      display.value = lastResult;
     } else if (this.id === "clear") {
       display.value = "";
     } else if (this.id === "bs") {
@@ -84,11 +92,12 @@ display.addEventListener('input', function () {
   display.classList.remove("error");
 });
 
-
-// Add event listener to the display input field to restrict input to numbers
-// Remove any non-numeric characters from the input value
-
+// Event listener to restrict the display input field & Remove any non-numeric characters from the input value
 display.addEventListener('input', function () {
+  if (!isCalculatorOn) {
+    display.value = ""; // Clear the display if calculator is off
+    return;
+  }
+
   this.value = this.value.replace(/\D/g, '');
 });
-
